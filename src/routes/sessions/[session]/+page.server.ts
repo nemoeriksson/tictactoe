@@ -2,7 +2,7 @@ import type { Actions, PageServerLoad } from './$types';
 import { error, fail, redirect } from '@sveltejs/kit';
 import { prisma } from '$lib';
 
-let inactivityDelay = 1000;
+let inactivityDelay = 2000;
 let inactivityTimouts = new Map<string, any>();
 let deletionTimout:any;
 let deletionDelay = 15*1000;
