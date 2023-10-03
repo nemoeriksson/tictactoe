@@ -8,9 +8,15 @@ let loggedInUsers = <string[]>[];
 
 export const load = (async ({ cookies }) => {
     let username = cookies.get('username');
+    let existingUser = await prisma.user.findUnique({
+        where: {name: username}
+    });
 
-    if(!(typeof username === 'undefined')){
+    if(!(typeof username === 'undefined') && existingUser){
         throw redirect(302, '/sessions');
+    }
+    else if(!existingUser){
+        cookies.delete('username');
     }
 
     return {  };
