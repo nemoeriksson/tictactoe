@@ -1,0 +1,283 @@
+.sessionManager{
+    width: 35%;
+    min-width: 440px;
+    height: 100%;
+    position: absolute;
+    transition: 250ms all;
+    top: 0;
+    clip-path: polygon(5% 0, 100% 0, 100% 100%, 0 100%);
+    right: 0;
+    background: var(--dark);
+}
+
+.sessionContainer{
+    height: 100%;
+}
+
+.listContainer{
+    background: var(--light3);
+    border-radius: 12px;
+    width: 320px;
+    height: 480px;
+    position: relative;
+    top: 42%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 12px -3px var(--light-gradient);
+}
+
+.listContainer .banner{
+    width: 100%;
+    height: 50px;
+    border-radius: 12px 12px 0 0;
+    z-index: 4;
+    position: relative;
+    box-shadow: none;
+    transition: 350ms all;
+    background: var(--light);
+}
+.listContainer .banner.shadow{
+    box-shadow: 0px 3px 3px 0 var(--light-gradient);
+}
+
+.banner p{
+    color: var(--main);
+    font-weight: 500;
+    font-size: 18px;
+    letter-spacing: 1px;
+    position: relative;
+    display: inline-block;
+    width: fit-content;
+    transform: translateY(-50%);
+    top: 50%;
+    left: 18px;
+}
+
+.banner span{
+    position: absolute;
+    right: 18px;
+    top: 50%;
+    color: var(--main);
+    font-weight: 500;
+    transform: translateY(-50%);
+}
+
+.banner span:hover{
+    cursor: pointer;
+}
+
+.searchbar{
+    height: 40px;
+    width: 100%;
+    position: relative;
+    box-shadow: 0px 3px 3px 0 var(--light-gradient);
+    background: var(--light);
+    overflow: hidden;
+} .searchbar.fadeIn{
+    animation: 350ms fadeInHeight forwards;
+} .searchbar.fadeOut{
+    animation: 350ms fadeOutHeight forwards;
+}
+
+.searchbar input{
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 36px);
+    height: 28px;
+    outline: none;
+    background: var(--light2);
+    border: 1px solid var(--light2);
+    padding: 2px 12px 2px 12px;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.sessions{
+    width: calc(100% - 8px);
+    margin-top: 4px;
+    height: calc(100% - 50px - 24px);
+    overflow-y: scroll;
+} .sessions.shorten{
+    height: calc(100% - 74px - 40px);
+    animation: 350ms shorten forwards;
+} .sessions.lengthen{
+    height: calc(100% - 74px);
+    animation: 350ms lengthen forwards;
+}
+
+::-webkit-scrollbar{
+    width: 6px;
+}
+::-webkit-scrollbar-track{
+    background: var(--light3);
+}
+
+::-webkit-scrollbar-thumb{
+    background: var(--light);
+    border-radius: 3px;
+}
+
+.sessions article{
+    height: 40px;
+    width: calc(100% - 18px);
+    left: 50%;
+    position: relative;
+    transform: translateX(-50%);
+    background: var(--light);
+    border: 2px solid var(--light);
+    border-radius: 4px;
+    margin-bottom: 12px;
+}
+
+article .sessionName{
+    font-size: 18px;
+    text-decoration: none;
+    display: inline-block;
+    position: relative;
+    top: 50%;
+    left: 12px;
+    transform: translateY(-50%);
+}
+
+article .onlineUsers{
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    display: inline-block;
+    transform: translate(-50%, -50%);
+}
+
+.addSession{
+    height: 74px;
+    background: var(--light3);
+    width: 100%;
+    border-radius: 0 0 12px 12px;
+    position: relative;
+}
+
+.addSession .addButton{
+    border-radius: 50%;
+    aspect-ratio: 1;
+    width: 40px;
+    background: var(--main);
+    background-image: url('/svgs/plus.svg');
+    background-size: 25px;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    position: absolute;
+    right: 12px;
+    bottom: 24px;
+    outline: none;
+    border: none;
+    transition: 250ms all;
+}
+
+.addButton:hover{
+    cursor: pointer;
+}
+
+.addButton.clicked{
+    transform: rotate(-45deg);
+}
+
+.formInput{
+    height: 40px;
+    width: 0;
+    border: none;
+    outline: none;
+    background: var(--light2);
+    position: absolute;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    left: 18px;
+    bottom: 24px;
+    position: absolute;
+}
+
+.slideIn{
+    animation: slideSpawn 400ms ease-out forwards;
+}
+
+.slideOut{
+    animation: slideDespawn 400ms ease-out forwards;
+}
+
+.inputError{
+    position: absolute;
+    bottom: 4px;
+    display: inline-block;
+    width: fit-content;
+    left: 30px;
+    font-size: 14px;
+    animation: 1s fadeOut forwards;
+}
+
+@keyframes fadeOut{
+    0%{
+        opacity: 1;
+    }
+    75%{
+        opacity: 1;
+    }
+    100%{opacity: 0;}
+}
+
+@keyframes slideSpawn{
+    from{
+        width: 0;
+        transform: translateX(240px);
+        padding: 0;
+    }
+    to{
+        width: 240px;
+        transform: translateX(0);
+        padding: 2px 12px 2px 12px;
+    }
+}
+
+@keyframes slideDespawn{
+    from{
+        width: 240px;
+        padding: 2px 12px 2px 12px;
+        transform: translateX(0px);
+    }
+    to{
+        width: 0;
+        padding: 0;
+        transform: translateX(240px);
+    }
+}
+
+@keyframes fadeInHeight {
+    from{
+        height: 0;
+    }
+    to{
+        height: 40px;
+    }
+} @keyframes fadeOutHeight {
+    from{
+        height: 40px;
+    }
+    to{
+        height: 0;
+    }
+} 
+
+@keyframes shorten {
+    from {
+        height:calc(100% - 74px); 
+    }
+    to {
+        height: calc(100% - 74px - 40px);
+    }
+} @keyframes lengthen {
+    from {
+        height:calc(100% - 74px - 40px); 
+    }
+    to {
+        height: calc(100% - 74px);
+    }
+}

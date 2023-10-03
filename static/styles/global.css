@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:wght@300;400;500&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Fira Sans', sans-serif;
+    user-select: none;
+    color: var(--dark);
+}
+
+html, body{
+    min-height: 100% !important;
+    height: 100%;
+}
+
+:root{
+    --main: #FE8E3D;
+    --secondary: #006774;
+    --secondary-darker: #1B545D;
+    --secondary-gradient: #48A15F;
+    --light: #EFEFEF;
+    --light2: #ddd;
+    --light3: #e6e6e6;
+    --light-gradient: #BABABA;
+    --dark: #2F4858;
+}

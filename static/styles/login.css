@@ -1,0 +1,191 @@
+body{
+    background: var(--light);
+    overflow: hidden;
+}
+
+.content{
+    width: 65%;
+    height: 100%;
+}
+
+.formSection{
+    width: 35%;
+    min-width: 440px;
+    height: 100%;
+    position: absolute;
+    transition: 250ms all;
+    top: 0;
+    clip-path: polygon(5% 0, 100% 0, 100% 100%, 0 100%);
+}
+
+.formSection.register{
+    background: var(--secondary);
+    right: 0;
+}
+
+.formSection.login{
+    background: var(--main);
+    right: 0;
+}
+
+.formContainer{
+    position: relative;
+    width: 300px;
+    height: 400px;
+    top: 45%;
+    left: 50%;
+    background: var(--light);
+    transform: translate(-50%,-50%);
+    border-radius: 12px;
+    box-shadow: 0 0 12px -3px var(--light-gradient);
+}
+
+.formSection .banner{
+    width: 100%;
+    height: 50px;
+    border-radius: 12px 12px 0 0;
+    box-shadow: 0px 3px 3px 0 var(--light-gradient);
+}
+
+.banner p{
+    color: var(--main);
+    font-weight: 500;
+    font-size: 18px;
+    letter-spacing: 1px;
+    position: relative;
+    display: inline-block;
+    width: fit-content;
+    transform: translateY(-50%);
+    top: 50%;
+    left: 18px;
+}
+
+.formSection form {
+    height: calc(100% - 50px);
+    position: relative;
+}
+
+.formSection form label{
+    position: relative;
+    left: 18px;
+    top: -3px;
+    margin: 12px 0 0 0;
+    width: fit-content;
+    display: inline-block;
+}
+
+.formSection form label:first-of-type{
+    margin: 0 0 0 0;
+    padding-top: 24px;
+}
+
+.formSection form input{
+    width: 240px;
+    height: 40px;
+    background: var(--light2);
+    border: 1px solid var(--light2);
+    border-radius: 3px;
+    border: none;
+    outline: none;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-bottom: 6px;
+    font-size: 16px;
+    padding: 0 12px 0 12px;
+    text-transform: lowercase;
+}
+
+.formSection form input[type='password']{
+    letter-spacing: 1px;
+}
+
+.formSection form .submit{
+    height: 40px;
+    width: 240px;
+    border-radius: 3px;
+    outline: none;
+    border: none;
+    background: var(--secondary);
+    color: var(--light);
+    font-size: 18px;
+    letter-spacing: 1px;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 30px;
+}
+
+.formSection form .submit.mainColor{
+    background: var(--main);
+    margin-top: 8px;
+}
+
+.formSection form .warning{
+    font-size: 18px;
+    margin: 20px auto 0 auto;
+    display: block;
+    text-align: center;
+    animation: 1s fadeOut forwards;
+}
+
+.formSection form .formFooter{
+    height: 50px;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    border-radius: 0 0 12px 12px;
+    box-shadow: 0px -3px 3px 0 var(--light-gradient);
+}
+
+.formSection form .formFooter p{
+    color: var(--main);
+    letter-spacing: 1px;
+    position: relative;
+    display: inline-block;
+    width: fit-content;
+    transform: translateY(-50%);
+    top: 50%;
+    left: 20px;
+}
+.formFooter a{
+    color: var(--main);
+}
+
+.pwRequirements{
+    width: 80%;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.requirement{
+    display: block;
+    margin-bottom: 4px;
+    font-size: 14px;
+    position: relative;
+}
+
+.crossed{
+    height: 16px;
+    display: inline-block;
+    aspect-ratio: 1;
+    transform: translateY(3px);
+    background: url('/svgs/cross.svg');
+    background-size: 18px;
+}
+
+.checked{
+    background: url('/svgs/checkmark.svg');
+    background-size: 18px;
+}
+
+@keyframes fadeOut{
+    0%{
+        opacity: 1;
+    }
+    75%{
+        opacity: 1;
+    }
+    100%{opacity: 0;}
+}
