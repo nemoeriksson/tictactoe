@@ -1,0 +1,6 @@
+Added: 
+ - Ability to show & hide passwords when registering
+ - "Username already taken" error message added
+
+Bugfixes:
+ - Users no longer able to register without entering password

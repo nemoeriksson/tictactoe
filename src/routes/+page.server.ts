@@ -1,10 +1,18 @@
 import { fail, redirect } from '@sveltejs/kit';
 import type { Actions, PageServerLoad } from './$types';
-import sha256 from 'crypto-js/sha256';
-import Base64 from 'crypto-js/enc-base64';
+import * as crypto from 'crypto';
 import { prisma } from '$lib';
 
-let loggedInUsers = <string[]>[];
+function hash(original:string, ){
+    const salt = crypto.randomBytes(16).toString('base64');
+    const hash = crypto.pbkdf2Sync(original, salt, 1000, 64, 'sha256').toString('base64');
+    return {salt,hash};
+}
+
+function validate(original:string, salt:string, storedHash:string){
+    const hash = crypto.pbkdf2Sync(original, salt, 1000, 64, 'sha256').toString('base64');
+    return hash == storedHash;
+}
 
 export const load = (async ({ cookies }) => {
     let username = cookies.get('username');
@@ -38,21 +46,15 @@ export const actions: Actions = {
             if(!existingUser){
                 return fail(403, {username: "Username not found"})
             }
+            let validated = validate(password, existingUser.salt, existingUser.password);
 
-            let saltData = JSON.parse(existingUser?.saltData)
-            let encrypted = Base64.stringify(sha256(password.slice(0, saltData.saltStart) + saltData.salt + password.slice(saltData.saltStart)));
-
-            if(loggedInUsers.includes(username)){
-                return fail(403, {username:"User already logged in"});
-            }
-            else if(encrypted == existingUser?.password){
-                loggedInUsers.push(username);
+            if(validated){
                 let expirationDate = new Date();
                 expirationDate.setDate(expirationDate.getDate()+14);
                 cookies.set('username', username, {secure: false, expires: expirationDate});
                 throw redirect(307, '/sessions');
             }
-            else if(encrypted != existingUser?.password){
+            else if(!validated){
                 return fail(401, {username: "Incorrect username or password"})
             }
         }
@@ -63,7 +65,6 @@ export const actions: Actions = {
         if(typeof username === 'undefined'){
             return fail(400, {username: "User not detected"})
         }
-        loggedInUsers = loggedInUsers.filter(user=>{user!=username});
         cookies.delete('username'); 
     },
 
@@ -77,19 +78,20 @@ export const actions: Actions = {
         });    
         if(existingUser)
             return fail(409, {username: 'Username already taken'});
-        
-        let salt = (Math.random()+1).toString(36).substring(2);
-        let saltStart = Math.floor(Math.random()*password.length);
-        let encrypted = Base64.stringify(sha256(password.slice(0, saltStart) + salt + password.slice(saltStart)));
+        if(password.length<12){
+            return fail(409)}
+
+        let hashData = hash(password);
+        let encrypted = hashData.hash;
+        let salt = hashData.salt;
         await prisma.user.create({
             data: {
                 name: username,
                 password: encrypted,
-                saltData: JSON.stringify({salt, saltStart})
+                salt: salt
             }
-        })
-        loggedInUsers.push(username);
-
+        });
+        
         let expirationDate = new Date();
         expirationDate.setDate(expirationDate.getDate()+14);
         cookies.set('username', username, {secure: false, expires: expirationDate});

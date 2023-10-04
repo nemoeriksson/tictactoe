@@ -6,6 +6,7 @@ import { fly } from "svelte/transition";
 
 export let form;
 
+let showPassword = false;
 let showRegisterForm = false;
 let formSectionOffset = 440;
 if(browser){
@@ -61,9 +62,19 @@ let hasNumber = false;
 
             <form method="post" action="?/register" use:enhance>
                 <label for="username">Username</label>
-                <input required type="text" name="username">
+                <div class="usernameField">
+                    <input required type="text" name="username">
+                    {#if form?.username}
+                        <span class="smallWarning">{form.username}</span>
+                    {/if}
+                </div>
                 <label for="password">Password</label>
-                <input type="password" pattern='^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).&#123;12,&#125;$' name="password" on:keyup={()=>{pwCheckCases()}} bind:this={registerPasswordInput}> 
+                <div class="passwordField">
+                    <input type={showPassword ? 'text' : 'password'} pattern='^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).&#123;12,&#125;$' name="password" on:keyup={()=>{pwCheckCases()}} bind:this={registerPasswordInput}> 
+                    <div class="showPasswordIcon" class:show={showPassword} 
+                        on:click={()=>{showPassword=!showPassword}} aria-hidden='true'
+                        title={showPassword ? 'Hide Password' : 'Show password'}></div>
+                </div> 
                 <div class="pwRequirements">
                     <p class="requirement">
                         <span class="crossed" class:checked={hasLength}></span>
@@ -80,7 +91,7 @@ let hasNumber = false;
                 </div>
                 <button class="submit mainColor">Register</button>
                 <div class="formFooter">
-                    <p>Or <a href="#" on:click={()=>{showRegisterForm=false}} aria-hidden='true'>log in</a> to an account</p>
+                    <p>Or <a href="#" on:click={()=>{showRegisterForm=false;showPassword=false}} aria-hidden='true'>log in</a> to an account</p>
                 </div>
             </form>
         </div> 

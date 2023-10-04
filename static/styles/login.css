@@ -69,14 +69,14 @@ body{
     position: relative;
     left: 18px;
     top: -3px;
-    margin: 12px 0 0 0;
+    margin: 16px 0 0 0;
     width: fit-content;
     display: inline-block;
 }
 
 .formSection form label:first-of-type{
     margin: 0 0 0 0;
-    padding-top: 24px;
+    padding-top: 18px;
 }
 
 .formSection form input{
@@ -98,6 +98,36 @@ body{
 
 .formSection form input[type='password']{
     letter-spacing: 1px;
+}
+
+.formSection.register form input[name='password']{
+    text-transform: none;
+}
+
+.formSection.register form input[type='password']{
+    padding: 0 40px 0 12px;
+}
+
+.passwordField, .usernameField{
+    position: relative;
+}
+
+.passwordField .showPasswordIcon{
+    background: url('/svgs/eye_closed.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 28px;
+    aspect-ratio: 1;
+    position: absolute;
+    top: 6px;
+    right: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.passwordField .showPasswordIcon.show{
+    background: url('/svgs/eye_open.svg');
+    background-size: cover;
 }
 
 .formSection form .submit{
@@ -127,6 +157,14 @@ body{
     display: block;
     text-align: center;
     animation: 1s fadeOut forwards;
+}
+
+.formSection form .smallWarning{
+    font-size: 12px;
+    position: absolute;
+    top: 40px;
+    left: 36px; 
+    animation: 2s fadeOut forwards;
 }
 
 .formSection form .formFooter{
