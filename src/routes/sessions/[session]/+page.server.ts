@@ -40,6 +40,10 @@ export const load = (async ({params, cookies}) => {
     if(typeof username === 'undefined'){
         throw redirect(303, '/'); 
     }
+    const existingUser = await prisma.user.findUnique({where: {name: username}}); // FIX IF USERNAME UNDEFINED
+    if(!existingUser){
+        throw redirect(303, '/');
+    }
 
     let oldTimeout = inactivityTimouts.get(username);
     if (oldTimeout){

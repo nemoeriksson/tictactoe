@@ -55,7 +55,7 @@ export const actions: Actions = {
                 throw redirect(307, '/sessions');
             }
             else if(!validated){
-                return fail(401, {username: "Incorrect username or password"})
+                return fail(401, {password: "Incorrect password"});
             }
         }
     },
@@ -77,7 +77,7 @@ export const actions: Actions = {
             where: {name: username}
         });    
         if(existingUser)
-            return fail(409, {username: 'Username already taken'});
+            return fail(409, {usernameReg: 'Username already taken'});
         if(password.length<12){
             return fail(409)}
 

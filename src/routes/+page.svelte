@@ -39,15 +39,22 @@ let hasNumber = false;
 
         <form method="post" action="?/login" use:enhance>
             <label for="username">Username</label>
-            <input required type="text" name="username">
+            <div class="usernameField">
+                <input required type="text" name="username">
+                {#if form?.username}
+                    <span class="smallWarning">{form.username}</span>
+                {/if}
+            </div>
             <label for="password">Password</label>
-            <input required autocomplete="current-password" type="password" name="password">    
+            <div class="passwordField">
+                <input required autocomplete="current-password" type="password" name="password">    
+                {#if form?.password}
+                    <span class="smallWarning">{form.password}</span>
+                {/if}
+            </div>
             <button class="submit">Log In</button>
-            {#if form?.username}
-                <span class="warning">{form.username}</span>
-            {/if}
             <div class="formFooter">
-                <p>Or <a href="#" on:click={()=>{showRegisterForm=true}} aria-hidden='true'>create</a> a new account</p>
+                <p>Or <span on:click={()=>{showRegisterForm=true}} aria-hidden='true'>create</span> a new account</p>
             </div>
         </form>
     </div> 
@@ -64,8 +71,8 @@ let hasNumber = false;
                 <label for="username">Username</label>
                 <div class="usernameField">
                     <input required type="text" name="username">
-                    {#if form?.username}
-                        <span class="smallWarning">{form.username}</span>
+                    {#if form?.usernameReg}
+                        <span class="smallWarning">{form.usernameReg}</span>
                     {/if}
                 </div>
                 <label for="password">Password</label>
@@ -91,7 +98,7 @@ let hasNumber = false;
                 </div>
                 <button class="submit mainColor">Register</button>
                 <div class="formFooter">
-                    <p>Or <a href="#" on:click={()=>{showRegisterForm=false;showPassword=false}} aria-hidden='true'>log in</a> to an account</p>
+                    <p>Or <span on:click={()=>{showRegisterForm=false;showPassword=false}} aria-hidden='true'>log in</span> to an account</p>
                 </div>
             </form>
         </div> 

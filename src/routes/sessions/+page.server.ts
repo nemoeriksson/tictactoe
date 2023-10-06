@@ -8,6 +8,10 @@ export const load = (async ({cookies}) => {
     if(typeof username === 'undefined'){
         throw redirect(303, '/');
     }
+    let existingUser = await prisma.user.findUnique({where: {name: username}});
+    if(!existingUser){
+        throw redirect(303, '/');
+    }
     let sessions = await prisma.session.findMany();
     let onlineUserData = new Map<string, number>();
     for(let session of sessions){

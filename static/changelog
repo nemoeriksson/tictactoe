@@ -1,6 +1,5 @@
-Added: 
- - Ability to show & hide passwords when registering
- - "Username already taken" error message added
+Added:
+ - Moved error text when logging in to relevant input field
 
 Bugfixes:
- - Users no longer able to register without entering password
+ - User can no longer access deeper routes without being logged in
